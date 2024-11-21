@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { combineLatest, map, mergeMap, Observable, of } from 'rxjs';
 import { environment } from './../../environments/environment';
 
 @Injectable({
@@ -15,20 +15,20 @@ export class OrganizationLevelService {
 
   getCopilotUsageData(): Observable<any>  {
     // sample dta loaded from local file
-    return this.http.get(this.copilotUsageDataUrl);
+    //return this.http.get(this.copilotUsageDataUrl);
     // uncomment below line to invoke API
     // modify the environment file to add your token
     // modify the organization name to your organization
-    // return this.invokeCopilotUsageApi();
+    return this.invokeCopilotUsageApi();
   }
 
   getCopilotSeatsData(): Observable<any>  {
     // sample dta loaded from local file
-    return this.http.get(this.copilotSeatsDataUrl);
+    //return this.http.get(this.copilotSeatsDataUrl);
     // uncomment below line to invoke API
     // modify the environment file to add your token
     // modify the organization name to your organization
-    // return this.invokeCopilotSeatApi();
+    return this.invokeCopilotSeatApi();
   }
 
   invokeCopilotUsageApi(): Observable<any> {
@@ -48,28 +48,42 @@ export class OrganizationLevelService {
   invokeCopilotSeatApi(): Observable<any> {
     const orgName = environment.orgName; 
     const apiUrl = `${environment.ghBaseUrl}/${orgName}/${environment.copilotSeatApiUrl}`;
-    var data:any;
-    var firstPage=true;
-    var pageNo=1;
-    var totalPages=1;
-
-    // get the paginated Copilot Seat allocation data
-    do{
-      var response = this.getPaginatedSeatsData(apiUrl, pageNo);
-      response.subscribe((data: any) => {
-        if(firstPage){
-          data=data;
-          firstPage=false;
-          totalPages=data.total_pages;
+  
+    let firstPage = true;
+  
+    // Function to fetch a single page
+    const fetchPage = (pageNo: number): Observable<any> => {
+      return this.getPaginatedSeatsData(apiUrl, pageNo);
+    };
+  
+    return fetchPage(1).pipe(
+      mergeMap((firstPageData: any) => {
+        const totalPages = firstPageData.total_pages;
+        let allSeats = [...firstPageData.seats];
+  
+        if (totalPages <= 1) {
+          // If there's only one page, return the data
+          return [firstPageData];
         }
-        else{
-          data.seats=data.seats.concat(data.seats);
+  
+        // Fetch all remaining pages
+        const pageRequests = [];
+        for (let page = 2; page <= totalPages; page++) {
+          pageRequests.push(fetchPage(page));
         }
-      });
-      pageNo=pageNo+1;
-    }while(pageNo < totalPages);
-
-    return data;
+  
+        return pageRequests.length
+          ? combineLatest(pageRequests).pipe(
+              map((otherPages: any[]) => {
+                otherPages.forEach((pageData) => {
+                  allSeats = allSeats.concat(pageData.seats);
+                });
+                return { ...firstPageData, seats: allSeats };
+              })
+            )
+          : of({ ...firstPageData, seats: allSeats });
+      })
+    );
   }
 
   getPaginatedSeatsData(apiUrl:any, pageNo:any): Observable<any> {

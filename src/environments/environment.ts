@@ -4,12 +4,17 @@
 
 export const environment = {
   production: false,
-  orgName: "Contoso",
-  token:"<<your token>>",
+  orgName: "Kentico",
+  token: "",
   ghBaseUrl:"https://api.github.com/orgs",
-  copilotUsageApiUrl:"/copilot/usage",
-  copilotSeatApiUrl:"/copilot/billing/seats"
+  copilotUsageApiUrl:"copilot/usage",
+  copilotSeatApiUrl:"copilot/billing/seats"
 };
+
+
+// https://docs.github.com/en/rest/copilot/copilot-usage?apiVersion=2022-11-28#get-a-summary-of-copilot-usage-for-organization-members
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file
