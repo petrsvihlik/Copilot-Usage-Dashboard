@@ -12,24 +12,45 @@ This Angular application is designed to provide insights into GitHub Copilot usa
 
 ## Getting Started
 
-1. Clone the Repository to Visual Studio Code
-2. Install the required dependencies using `npm install`
+### Setting up GitHub OAuth
+1. Register a new OAuth App on GitHub:
+   - Go to GitHub Developer Settings > OAuth Apps > New OAuth App
+   - Set Homepage URL to `http://localhost:4200`
+   - Set Authorization callback URL to `http://localhost:4200/callback`
+   - Note the Client ID and Client Secret
+
+2. Configure the application:
+   - Update the GitHub client ID in `src/environments/environment.ts` 
+   - Create a `.env` file in the `server` directory using the `.env.example` template
+   - Add your GitHub client ID and client secret to the `.env` file
+
+3. Start the OAuth proxy server:
+   ```bash
+   cd server
+   npm install
+   npm start
+   ```
+
+4. In a new terminal, start the Angular application:
+   ```bash
+   npm install
+   npm start
+   ```
+
+5. Access the application in your browser at http://localhost:4200
+   - You'll be prompted to login with GitHub
+   - After authenticating, you'll have access to your organization's Copilot usage data
+
+### Using Sample Data
+If you want to use sample data without GitHub OAuth:
+1. Comment out the GitHub OAuth code in the services and components
+2. Enable the sample data loading code in `src/app/services/organization-level.service.ts`
 3. Run the app using `npm start`
-4. Access the application in your browser at http://localhost:4200.
-
-Above steps will start the app on `localhost:4200` using sample data from `src/assets` folder. 
-
-If you want to use your own data, follow the below steps:
-1. Create a GitHub Personal Access Token with Copilot for Business Scope
-2. Modify the token in `src/environments/environment.ts` file
-3. Modify the organization name in `src/environments/environment.ts` file
-4. Comment the sample data loading code in `src/app/services/organization-level.service.ts` file and uncomment the code to load data from API
-5. Install the required dependencies using `npm install`
-6. Run the app using `npm start`
 
 ## References
 1. [GitHub Copilot Usage Metrics API](#) - Yet to be published (Private Beta)
 2. [GitHub Copilot Seat Management API](https://docs.github.com/en/rest/copilot?apiVersion=2022-11-28)
+3. [GitHub OAuth Apps](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)
 
 ### Status: 15-Jan 
 

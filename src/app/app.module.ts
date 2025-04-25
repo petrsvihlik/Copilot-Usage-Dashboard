@@ -27,6 +27,8 @@ import { EnterpriseLevelComponent } from './dashboard/enterprise-level/enterpris
 import { ImpactAnalysisComponent } from './dashboard/impact-analysis/impact-analysis.component';
 import { SampleApiResponseComponent } from './dashboard/sample-api-response/sample-api-response.component';
 import { OrgSeatsComponent } from './dashboard/org-seats/org-seats.component';
+import { LoginComponent } from './auth/login/login.component';
+import { CallbackComponent } from './auth/callback/callback.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { OrgSeatsComponent } from './dashboard/org-seats/org-seats.component';
     EnterpriseLevelComponent,
     ImpactAnalysisComponent,
     SampleApiResponseComponent,
-    OrgSeatsComponent
+    OrgSeatsComponent,
+    LoginComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

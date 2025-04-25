@@ -5,10 +5,15 @@
 export const environment = {
   production: false,
   orgName: "Kentico",
-  token: "",
-  ghBaseUrl:"https://api.github.com/orgs",
-  copilotUsageApiUrl:"copilot/usage",
-  copilotSeatApiUrl:"copilot/billing/seats"
+  token: "", // Will be obtained via OAuth
+  ghBaseUrl:"https://api.github.com",
+  copilotUsageApiUrl:"orgs/${orgName}/copilot/metrics",
+  copilotSeatApiUrl:"orgs/${orgName}/copilot/billing/seats",
+  github: {
+    clientId: "Iv23liyQhIdjeRZXOOlR", // Replace with your GitHub OAuth App client ID
+    redirectUri: "http://localhost:4200/callback",
+    scope: "read:org admin:org" // Adjust scopes as needed
+  }
 };
 
 
