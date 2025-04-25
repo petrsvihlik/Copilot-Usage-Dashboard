@@ -1,23 +1,21 @@
-<p>
-  <mat-toolbar color="primary">
-    <button mat-icon-button (click)="gotoHome()">
-      <mat-icon>home</mat-icon>
-    </button>
-    <span>Copilot Usage Dashboard </span>
-    <span class="example-spacer"></span>
-    
-    <!-- Login/Logout buttons -->
-    <button *ngIf="!isLoggedIn" mat-raised-button (click)="login()">
-      Login with GitHub
-    </button>
-    <button *ngIf="isLoggedIn" mat-button (click)="logout()">
-      Logout
-    </button>
- 
-    <nav mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of links" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive">
-        {{link.label}}
-      </a>
-    </nav>
-  </mat-toolbar>
-</p>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="gotoHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>Copilot Usage Dashboard </span>
+  <span class="example-spacer"></span>
+  
+  <!-- Login/Logout buttons -->
+  <button *ngIf="!isLoggedIn" mat-raised-button (click)="login()">
+    Login with GitHub
+  </button>
+  <button *ngIf="isLoggedIn" mat-button (click)="logout()">
+    Logout
+  </button>
+
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of links" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive">
+      {{link.label}}
+    </a>
+  </nav>
+</mat-toolbar>

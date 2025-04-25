@@ -20,9 +20,7 @@ export class HeaderComponent implements OnInit {
   links = [
     {label: 'Organization', path: '/organization-level'},
     {label: 'Impact', path: '/impact'},
-    {label: 'Sample Response', path: '/sample-response'},
-    {label: 'Org Seats', path: '/org-seats'},
-    {label: 'Enterprise', path: '/enterprise-level'},
+    {label: 'Org Seats', path: '/org-seats'}
   ];
 
   ngOnInit(): void {

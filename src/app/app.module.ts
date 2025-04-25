@@ -23,9 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 import { OrgLevelComponent } from './dashboard/org-level/org-level.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { EnterpriseLevelComponent } from './dashboard/enterprise-level/enterprise-level.component';
 import { ImpactAnalysisComponent } from './dashboard/impact-analysis/impact-analysis.component';
-import { SampleApiResponseComponent } from './dashboard/sample-api-response/sample-api-response.component';
 import { OrgSeatsComponent } from './dashboard/org-seats/org-seats.component';
 import { LoginComponent } from './auth/login/login.component';
 import { CallbackComponent } from './auth/callback/callback.component';
@@ -37,9 +35,7 @@ import { CallbackComponent } from './auth/callback/callback.component';
     HeaderComponent,
     FooterComponent,
     OrgLevelComponent,
-    EnterpriseLevelComponent,
     ImpactAnalysisComponent,
-    SampleApiResponseComponent,
     OrgSeatsComponent,
     LoginComponent,
     CallbackComponent
